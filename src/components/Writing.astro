@@ -1,0 +1,114 @@
+---
+import { getCollection } from "astro:content";
+import SectionHeader from "./SectionHeader.astro";
+
+const all = await getCollection("writing");
+
+const published = all
+  .filter((p) => p.data.kind === "published")
+  .sort((a, b) => b.data.published.getTime() - a.data.published.getTime());
+
+const recommended = all
+  .filter((p) => p.data.kind === "recommended")
+  .sort((a, b) => b.data.published.getTime() - a.data.published.getTime());
+
+const linkedinActivity = "https://www.linkedin.com/in/diegopilosof/recent-activity/all/";
+
+const fmt = (d: Date) => d.toLocaleDateString("en-US", { year: "numeric", month: "short" });
+---
+<section id="writing" class="px-6 md:px-12 lg:px-24 py-20 md:py-28 max-w-6xl mx-auto">
+  <SectionHeader number="04" title="Writing" subtitle="Posting and reading" />
+
+  <div class="grid md:grid-cols-2 gap-12 md:gap-16">
+    <div>
+      <h3 class="font-mono text-xs uppercase tracking-[0.2em] text-text-muted mb-5">
+        Recent on LinkedIn
+      </h3>
+
+      {published.length > 0 ? (
+        <ul class="divide-y divide-white/[0.06] mb-6">
+          {published.map((post) => {
+            const href = post.data.link ?? linkedinActivity;
+            return (
+              <li class="py-5 first:pt-0">
+                <a
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="group block"
+                >
+                  <div class="flex items-baseline justify-between gap-4 mb-1">
+                    <h4 class="text-text-light font-semibold text-base group-hover:text-accent transition-colors">
+                      {post.data.title}
+                      <span class="text-text-muted ml-1">↗</span>
+                    </h4>
+                    <time
+                      datetime={post.data.published.toISOString()}
+                      class="font-mono text-xs text-text-muted shrink-0"
+                    >
+                      {fmt(post.data.published)}
+                    </time>
+                  </div>
+                  <p class="text-text-muted text-sm leading-relaxed">{post.data.description}</p>
+                </a>
+              </li>
+            );
+          })}
+        </ul>
+      ) : (
+        <p class="text-text-muted text-sm italic mb-6">First curated highlight in progress.</p>
+      )}
+
+      <a
+        href={linkedinActivity}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center gap-2 font-mono text-sm text-accent hover:text-accent-2 transition-colors"
+      >
+        See all activity on LinkedIn
+        <span>↗</span>
+      </a>
+    </div>
+
+    <div>
+      <h3 class="font-mono text-xs uppercase tracking-[0.2em] text-text-muted mb-5">
+        Worth reading
+      </h3>
+      {recommended.length > 0 ? (
+        <ul class="divide-y divide-white/[0.06]">
+          {recommended.map((post) => (
+            <li class="py-5 first:pt-0">
+              <a
+                href={post.data.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="group block"
+              >
+                <div class="flex items-baseline justify-between gap-4 mb-1">
+                  <h4 class="text-text-light font-semibold text-base group-hover:text-accent transition-colors">
+                    {post.data.title}
+                    <span class="text-text-muted ml-1">↗</span>
+                  </h4>
+                  <time
+                    datetime={post.data.published.toISOString()}
+                    class="font-mono text-xs text-text-muted shrink-0"
+                  >
+                    {fmt(post.data.published)}
+                  </time>
+                </div>
+                {(post.data.author || post.data.source) && (
+                  <p class="font-mono text-xs text-accent/80 mb-1">
+                    {[post.data.author, post.data.source].filter(Boolean).join(" · ")}
+                  </p>
+                )}
+                <p class="text-text-muted text-sm leading-relaxed">{post.data.description}</p>
+              </a>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p class="text-text-muted text-sm italic">Curating the first set.</p>
+      )}
+    </div>
+  </div>
+</section>

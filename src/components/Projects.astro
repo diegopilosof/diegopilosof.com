@@ -1,0 +1,29 @@
+---
+import { getCollection } from "astro:content";
+import SectionHeader from "./SectionHeader.astro";
+import ProjectCard from "./ProjectCard.astro";
+
+const projects = (await getCollection("projects")).sort(
+  (a, b) => a.data.order - b.data.order
+);
+
+const shipped = projects.filter((p) => p.data.status === "Shipped");
+const upcoming = projects.filter((p) => p.data.status !== "Shipped");
+---
+<section id="projects" class="px-6 md:px-12 lg:px-24 py-20 md:py-28 max-w-6xl mx-auto">
+  <SectionHeader number="03" title="Projects" subtitle="Shipped and shipping" />
+
+  <div class="space-y-6">
+    {shipped.map((entry) => (
+      <ProjectCard entry={entry} featured />
+    ))}
+
+    {upcoming.length > 0 && (
+      <div class="grid md:grid-cols-2 gap-6">
+        {upcoming.map((entry) => (
+          <ProjectCard entry={entry} />
+        ))}
+      </div>
+    )}
+  </div>
+</section>

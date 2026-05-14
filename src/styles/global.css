@@ -1,0 +1,120 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #0F1723;
+  --color-secondary: #0A2342;
+  --color-accent: #C1E666;
+  --color-accent-2: #D2F578;
+  --color-text-light: #FFFFFF;
+  --color-text-dim: #D7E1F0;
+  --color-text-muted: #8CA5C3;
+  --color-text-dark: #1A1A1A;
+  --color-text-medium: #4A4A4A;
+
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+
+  --text-display: clamp(2.5rem, 6vw + 1rem, 5rem);
+  --text-h1: clamp(2rem, 4vw + 0.5rem, 3.25rem);
+  --text-h2: clamp(1.5rem, 2.5vw + 0.5rem, 2rem);
+  --text-lead: clamp(1.125rem, 0.5vw + 1rem, 1.25rem);
+
+  --container-content: 64rem;
+  --container-prose: 38rem;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  background-color: var(--color-primary);
+  color: var(--color-text-light);
+  font-family: var(--font-sans);
+  font-size: 17px;
+  line-height: 1.6;
+  font-feature-settings: "ss01", "cv11";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+@media (min-width: 768px) {
+  body {
+    font-size: 18px;
+  }
+}
+
+::selection {
+  background-color: var(--color-accent);
+  color: var(--color-primary);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.font-mono,
+[data-mono] {
+  font-family: var(--font-mono);
+  font-feature-settings: "tnum";
+}
+
+.section-rule {
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    var(--color-accent) 0,
+    var(--color-accent) 3rem,
+    rgba(140, 165, 195, 0.18) 3rem,
+    rgba(140, 165, 195, 0.18) 100%
+  );
+}
+
+.live-dot {
+  display: inline-block;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 9999px;
+  background-color: var(--color-accent);
+  box-shadow: 0 0 0 4px rgba(193, 230, 102, 0.18);
+  vertical-align: middle;
+}
+
+@media print {
+  html, body {
+    background: white !important;
+    color: black !important;
+    font-size: 11pt;
+  }
+  nav, footer, .no-print, [data-no-print] {
+    display: none !important;
+  }
+  section {
+    page-break-inside: avoid;
+    padding: 0.5rem 0 !important;
+    margin: 0 !important;
+  }
+  h1, h2, h3 {
+    color: black !important;
+  }
+  a {
+    color: black !important;
+    text-decoration: underline;
+  }
+  .section-rule {
+    background: black !important;
+    height: 1px !important;
+  }
+  iframe {
+    display: none !important;
+  }
+}

@@ -1,0 +1,74 @@
+---
+import SectionHeader from "./SectionHeader.astro";
+
+const roles = [
+  {
+    company: "Compugen",
+    suffix: "Nasdaq: CGEN · Tel Aviv",
+    title: "Financial Controller",
+    period: "2025 to 2026",
+    bullets: [
+      "Contributed to US GAAP reporting and ASC 606 revenue recognition for a small portfolio of high-complexity, multi-period contracts. Built independent recognition models where standard schedules failed to capture the underlying economics.",
+      "Cut month-end close cycle from 7 to 5 days by mapping data-collection bottlenecks and rebuilding manual reconciliation workflows. Freed 1 to 2 days of team capacity per cycle for analysis instead of data entry.",
+      "Partnered cross-functionally with operations and revenue stakeholders, translating close-cycle outputs into management decisions on pricing, contract structure, and forecasting.",
+    ],
+  },
+  {
+    company: "Ernst & Young",
+    suffix: "High-Tech & VC-Backed · Tel Aviv",
+    title: "Senior Assurance",
+    period: "2024 to 2025",
+    bullets: [
+      "Validated SaaS and ARR revenue recognition across approximately 10 VC-backed and post-IPO tech clients, combined revenue scale in the hundreds of millions. Tested ASC 606 application across multi-element arrangements, contract modifications, variable consideration, and billing-to-recognition timing.",
+      "Reconstructed standalone-pricing allocations for a multi-element arrangement where pricing history was undocumented. Client management adopted the proposed method, which informed downstream updates to their revenue recognition process.",
+      "Ran SQL and Excel-based data analytics on transaction populations of approximately tens of thousands of records per audit, surfacing reconciliation breaks between operational system data and financial reports that manual sampling would have missed.",
+    ],
+  },
+  {
+    company: "ANEP",
+    suffix: "Uruguay · Team of 6",
+    title: "Internal Audit Lead, Process Architect",
+    period: "2020 to 2022",
+    bullets: [
+      "Led a team of 6 auditors at a ~$2B-budget, ~85,000-employee public institution. Rebuilt audit methodology from scratch, digitized legacy workflows including the salaries audit covering 80,000+ employees, and lifted team productivity by ~50% without adding headcount.",
+      "Drove cultural change in a stuck organization, shifting the department from reactive compliance to proactive risk consulting. Recognized with an offer for Director of Economic and Finance at the Ministry of Education, declined to pursue further education.",
+    ],
+  },
+  {
+    company: "Grant Thornton",
+    suffix: "Uruguay",
+    title: "Financial Auditor, Retail & Consumer Markets",
+    period: "2019 to 2020",
+    bullets: [
+      "Audited high-volume retail clients, building analytical fluency in detecting cash-vs-sales reconciliation breaks and operational revenue leakage.",
+      "Mapped Order-to-Cash control cycles and recommended targeted process improvements to secure revenue cycle integrity.",
+    ],
+  },
+];
+---
+<section id="experience" class="px-6 md:px-12 lg:px-24 py-20 md:py-28 max-w-6xl mx-auto">
+  <SectionHeader number="05" title="Experience" subtitle="Track record" />
+
+  <ol class="space-y-1">
+    {roles.map((role) => (
+      <li class="grid md:grid-cols-[8rem_1fr] gap-3 md:gap-10 py-7 border-t border-white/[0.06] first:border-t-0">
+        <div class="font-mono text-sm text-text-muted pt-1">{role.period}</div>
+        <div>
+          <div class="flex flex-wrap items-baseline gap-x-3 gap-y-1 mb-2">
+            <h3 class="text-text-light font-semibold text-lg">{role.company}</h3>
+            <span class="font-mono text-xs text-text-muted uppercase tracking-wider">{role.suffix}</span>
+          </div>
+          <p class="text-accent font-mono text-sm mb-4">{role.title}</p>
+          <ul class="space-y-2.5 text-text-dim leading-relaxed max-w-3xl">
+            {role.bullets.map((b) => (
+              <li class="relative pl-5">
+                <span class="absolute left-0 top-[0.7em] block w-2 h-px bg-accent/60"></span>
+                {b}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </li>
+    ))}
+  </ol>
+</section>

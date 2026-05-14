@@ -1,0 +1,50 @@
+---
+import SectionHeader from "./SectionHeader.astro";
+
+const channels = [
+  {
+    label: "Email",
+    href: "mailto:dlpilosof@gmail.com",
+    value: "dlpilosof@gmail.com",
+    note: "Best for direct conversations",
+  },
+  {
+    label: "LinkedIn",
+    href: "https://www.linkedin.com/in/diegopilosof",
+    value: "/in/diegopilosof",
+    note: "Connection notes welcome",
+  },
+  {
+    label: "CV",
+    href: "/cv/Diego_Pilosof_CV.pdf",
+    value: "Download PDF",
+    note: "Updated quarterly",
+    download: true,
+  },
+];
+---
+<section id="contact" class="px-6 md:px-12 lg:px-24 py-20 md:py-28 max-w-6xl mx-auto">
+  <SectionHeader number="06" title="Contact" subtitle="Direct line" />
+
+  <ul class="grid md:grid-cols-3 gap-6 max-w-4xl">
+    {channels.map((c) => (
+      <li>
+        <a
+          href={c.href}
+          target={c.href.startsWith("http") ? "_blank" : undefined}
+          rel={c.href.startsWith("http") ? "noopener noreferrer" : undefined}
+          download={c.download ? true : undefined}
+          class="group block border border-white/[0.06] hover:border-accent/40 p-5 transition-colors h-full"
+        >
+          <div class="font-mono text-xs uppercase tracking-[0.2em] text-text-muted mb-3">
+            {c.label}
+          </div>
+          <div class="text-text-light font-semibold text-lg group-hover:text-accent transition-colors mb-1 break-words">
+            {c.value}
+          </div>
+          <div class="text-text-muted text-sm">{c.note}</div>
+        </a>
+      </li>
+    ))}
+  </ul>
+</section>

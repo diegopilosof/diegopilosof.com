@@ -1,0 +1,39 @@
+---
+import SectionHeader from "./SectionHeader.astro";
+
+const facts = [
+  { label: "Based", value: "Tel Aviv" },
+  { label: "CPA", value: "EY Tel Aviv (Big 4)" },
+  { label: "Most recent", value: "Compugen (Nasdaq: CGEN)" },
+  { label: "Engineering", value: "MERN, Israel Tech Challenge" },
+  { label: "Languages", value: "ES · EN · HE · PT" },
+];
+---
+<section id="about" class="px-6 md:px-12 lg:px-24 py-20 md:py-28 max-w-6xl mx-auto">
+  <SectionHeader number="01" title="About" subtitle="The operator" />
+
+  <div class="grid md:grid-cols-3 gap-12 md:gap-16">
+    <div class="md:col-span-2 space-y-6 text-text-dim leading-relaxed text-lg">
+      <p>
+        I'm a CPA trained at EY Tel Aviv's High-Tech and VC-Backed practice, and most recently the Financial Controller at Compugen, a Nasdaq-listed technology company. The work that taught me the most was sitting at the seam between accounting rigor and business decisions, contributing to ASC 606 revenue recognition for high-complexity multi-period contracts while acting as the analytical arm to department heads who needed P&L drivers explained, not just reported.
+      </p>
+      <p>
+        Over the last year I added a Full Stack MERN bootcamp at Israel Tech Challenge and started shipping production AI agents in n8n and Claude for finance workflows. The next decade of FP&A and Strategic Finance is being rewritten by the people who can speak both languages. That's the seat I'm building toward.
+      </p>
+    </div>
+
+    <aside class="md:col-span-1 space-y-4">
+      <p class="font-mono text-xs uppercase tracking-[0.2em] text-text-muted mb-2">
+        At a glance
+      </p>
+      <dl class="space-y-3 text-sm">
+        {facts.map(({ label, value }) => (
+          <div class="flex flex-col border-l-2 border-accent/40 pl-3">
+            <dt class="font-mono text-xs text-text-muted">{label}</dt>
+            <dd class="text-text-light font-medium">{value}</dd>
+          </div>
+        ))}
+      </dl>
+    </aside>
+  </div>
+</section>
