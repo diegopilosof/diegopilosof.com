@@ -7,4 +7,4 @@ status: Coming soon
 order: 3
 ---
 
-Most revenue recognition memos start as a blank page and a coffee. This agent reads the contract, identifies the performance obligations, drafts the standalone selling price logic, and hands a finance reviewer a working draft with cited contract clauses. Designed so the auditor can follow the chain of reasoning, not just the conclusion.
+Reads a signed contract, identifies the performance obligations, drafts the standalone selling price logic, and hands a finance reviewer a working draft with cited clauses.

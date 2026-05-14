@@ -6,19 +6,16 @@ const channels = [
     label: "Email",
     href: "mailto:dlpilosof@gmail.com",
     value: "dlpilosof@gmail.com",
-    note: "Best for direct conversations",
   },
   {
     label: "LinkedIn",
     href: "https://www.linkedin.com/in/diegopilosof",
     value: "/in/diegopilosof",
-    note: "Connection notes welcome",
   },
   {
     label: "CV",
     href: "/cv/Diego_Pilosof_CV.pdf",
     value: "Download PDF",
-    note: "Updated quarterly",
     download: true,
   },
 ];
@@ -39,10 +36,9 @@ const channels = [
           <div class="font-mono text-xs uppercase tracking-[0.2em] text-text-muted mb-3">
             {c.label}
           </div>
-          <div class="text-text-light font-semibold text-lg group-hover:text-accent transition-colors mb-1 break-words">
+          <div class="text-text-light font-semibold text-lg group-hover:text-accent transition-colors break-words">
             {c.value}
           </div>
-          <div class="text-text-muted text-sm">{c.note}</div>
         </a>
       </li>
     ))}

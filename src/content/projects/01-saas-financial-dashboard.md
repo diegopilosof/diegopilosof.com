@@ -8,4 +8,4 @@ embed: /projects/saas-financial-dashboard/index.html
 order: 1
 ---
 
-The same modeling engine adapts to segment reporting, driver-based forecasting, and integration scenarios with one config change. Built to be the kind of artifact a founder, a board member, and a finance lead can all read in the same five minutes.
+The same modeling engine adapts to segment reporting, driver-based forecasting, and integration scenarios with one config change.

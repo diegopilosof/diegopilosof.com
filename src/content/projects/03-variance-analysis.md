@@ -7,4 +7,4 @@ status: Coming soon
 order: 4
 ---
 
-The hard part of variance analysis is not the math. It is writing the explanation that a non-finance executive can act on. This agent generates the first-pass commentary by walking the variance tree from line-item to driver, then asks a human to sign off on the narrative before it ships to the close package.
+Generates the first-pass commentary by walking the variance tree from line item to driver. A human signs off on the narrative before it ships in the close package.
