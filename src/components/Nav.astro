@@ -1,12 +1,20 @@
 ---
+import { getCollection } from "astro:content";
+
+const writingEntries = await getCollection("writing");
+const hasWriting = writingEntries.length > 0;
+
 const links = [
-  { href: "#about", label: "About" },
-  { href: "#now", label: "Now" },
-  { href: "#projects", label: "Projects" },
-  { href: "#writing", label: "Writing" },
-  { href: "#experience", label: "Experience" },
-  { href: "#contact", label: "Contact" },
+  { href: "#about", label: "About", desktop: true, mobile: false },
+  { href: "#now", label: "Now", desktop: true, mobile: true },
+  { href: "#projects", label: "Projects", desktop: true, mobile: true },
+  { href: "#writing", label: "Writing", desktop: hasWriting, mobile: false },
+  { href: "#experience", label: "Experience", desktop: true, mobile: false },
+  { href: "#contact", label: "Contact", desktop: true, mobile: true },
 ];
+
+const desktopLinks = links.filter((l) => l.desktop);
+const mobileLinks = links.filter((l) => l.mobile);
 ---
 <nav class="fixed top-0 inset-x-0 z-40 backdrop-blur-md bg-primary/70 border-b border-white/[0.06]" data-no-print>
   <div class="max-w-6xl mx-auto px-6 md:px-12 h-14 flex items-center justify-between">
@@ -15,8 +23,9 @@ const links = [
         <span class="text-accent">DP</span><span class="text-text-muted group-hover:text-text-dim transition-colors">.</span>
       </span>
     </a>
-    <ul class="hidden md:flex items-center gap-7 text-sm font-mono">
-      {links.map(({ href, label }) => (
+
+    <ul class="flex md:hidden items-center gap-4 text-xs font-mono">
+      {mobileLinks.map(({ href, label }) => (
         <li>
           <a href={href} class="text-text-muted hover:text-text-light transition-colors">
             {label}
@@ -24,11 +33,15 @@ const links = [
         </li>
       ))}
     </ul>
-    <a
-      href="mailto:dlpilosof@gmail.com"
-      class="md:hidden text-sm font-mono text-text-muted hover:text-accent transition-colors"
-    >
-      Email →
-    </a>
+
+    <ul class="hidden md:flex items-center gap-7 text-sm font-mono">
+      {desktopLinks.map(({ href, label }) => (
+        <li>
+          <a href={href} class="text-text-muted hover:text-text-light transition-colors">
+            {label}
+          </a>
+        </li>
+      ))}
+    </ul>
   </div>
 </nav>

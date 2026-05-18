@@ -6,6 +6,7 @@ const channels = [
     label: "Email",
     href: "mailto:dlpilosof@gmail.com",
     value: "dlpilosof@gmail.com",
+    primary: true,
   },
   {
     label: "LinkedIn",
@@ -31,7 +32,12 @@ const channels = [
           target={c.href.startsWith("http") ? "_blank" : undefined}
           rel={c.href.startsWith("http") ? "noopener noreferrer" : undefined}
           download={c.download ? true : undefined}
-          class="group block border border-white/[0.06] hover:border-accent/40 p-5 transition-colors h-full"
+          class:list={[
+            "group block border p-5 transition-colors h-full",
+            c.primary
+              ? "border-accent/40 hover:border-accent"
+              : "border-white/[0.06] hover:border-accent/40",
+          ]}
         >
           <div class="font-mono text-xs uppercase tracking-[0.2em] text-text-muted mb-3">
             {c.label}
