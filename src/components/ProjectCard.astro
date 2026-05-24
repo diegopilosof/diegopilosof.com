@@ -50,12 +50,21 @@ const statusColor = isShipped ? "text-accent" : "text-text-muted";
 
   {featured && embed && (
     <div class="relative aspect-[4/3] md:aspect-video overflow-hidden border border-text-muted/20 bg-primary mb-6">
+      {/*
+        allow-same-origin is required: the embedded dashboard uses the Tailwind
+        Play CDN, which generates CSS at runtime by injecting a <style> tag into
+        its own document. That injection (and the dashboard's localStorage key
+        persistence) needs a real origin, not an opaque sandbox origin.
+        The iframe serves first-party content from this same origin, so this is
+        no more permissive than a normal same-origin embed. Future hardening:
+        move the dashboard to a separate subdomain so the parent DOM is isolated.
+      */}
       <iframe
         src={embed}
         loading="lazy"
         title={`${title} preview`}
         class="absolute inset-0 w-full h-full"
-        sandbox="allow-scripts"
+        sandbox="allow-scripts allow-same-origin"
       ></iframe>
     </div>
   )}
