@@ -24,3 +24,6 @@ pnpm-debug.log*
 
 # vercel
 .vercel
+
+# git worktrees (Claude Code)
+.worktrees/
