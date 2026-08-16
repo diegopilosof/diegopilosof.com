@@ -4,18 +4,18 @@ import SectionHeader from "./SectionHeader.astro";
 
 const all = await getCollection("writing");
 
-const published = all
-  .filter((p) => p.data.kind === "published")
+const linkedin = all
+  .filter((p) => p.data.kind === "linkedin")
   .sort((a, b) => b.data.published.getTime() - a.data.published.getTime());
 
 const recommended = all
   .filter((p) => p.data.kind === "recommended")
   .sort((a, b) => b.data.published.getTime() - a.data.published.getTime());
 
-const hasPublished = published.length > 0;
+const hasLinkedin = linkedin.length > 0;
 const hasRecommended = recommended.length > 0;
-const hasAny = hasPublished || hasRecommended;
-const bothColumns = hasPublished && hasRecommended;
+const hasAny = hasLinkedin || hasRecommended;
+const bothColumns = hasLinkedin && hasRecommended;
 
 const linkedinActivity = "https://www.linkedin.com/in/diegopilosof/recent-activity/all/";
 
@@ -26,14 +26,14 @@ const fmt = (d: Date) => d.toLocaleDateString("en-US", { year: "numeric", month:
     <SectionHeader number="04" title="Inputs" subtitle="What I'm reading and posting" />
 
     <div class:list={["grid gap-12 md:gap-16", bothColumns && "md:grid-cols-2"]}>
-      {hasPublished && (
+      {hasLinkedin && (
         <div>
           <h3 class="font-mono text-xs uppercase tracking-[0.2em] text-text-muted mb-5">
             Recent on LinkedIn
           </h3>
 
           <ul class="divide-y divide-white/[0.06] mb-6">
-            {published.map((post) => {
+            {linkedin.map((post) => {
               const href = post.data.link ?? linkedinActivity;
               return (
                 <li class="py-5 first:pt-0">
