@@ -1,11 +1,12 @@
 ---
 import { getCollection, render, type CollectionEntry } from "astro:content";
+import { anchorSlugFromId } from "../../lib/slug";
 import Layout from "../../layouts/Layout.astro";
 
 export async function getStaticPaths() {
   const anchors = await getCollection("writing", (p) => p.data.kind === "anchor");
   return anchors.map((post) => ({
-    params: { slug: post.id.replace(/^\d{4}-\d{2}-/, "") },
+    params: { slug: anchorSlugFromId(post.id) },
     props: { post },
   }));
 }
