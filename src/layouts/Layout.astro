@@ -4,14 +4,16 @@ import "../styles/global.css";
 interface Props {
   title?: string;
   description?: string;
+  canonical?: string;
 }
 
 const {
   title = "Diego Pilosof · Strategic Finance & FP&A",
   description = "CPA, Big 4 trained, ex-Controller at Compugen (Nasdaq). Building AI workflows for finance and revenue operations.",
+  canonical: canonicalOverride,
 } = Astro.props;
 
-const canonical = new URL(Astro.url.pathname, Astro.site).toString();
+const canonical = canonicalOverride ?? new URL(Astro.url.pathname, Astro.site).toString();
 ---
 <!doctype html>
 <html lang="en">

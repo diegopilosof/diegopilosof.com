@@ -1,21 +1,30 @@
 ---
 import { getCollection } from "astro:content";
+import { anchorSlugFromId } from "../lib/slug";
 import SectionHeader from "./SectionHeader.astro";
 
 const all = await getCollection("writing");
 
-const published = all
-  .filter((p) => p.data.kind === "published")
-  .sort((a, b) => b.data.published.getTime() - a.data.published.getTime());
+const anchors = all
+  .filter((p) => p.data.kind === "anchor")
+  .sort((a, b) => b.data.published.getTime() - a.data.published.getTime())
+  .slice(0, 5);
+
+const linkedin = all
+  .filter((p) => p.data.kind === "linkedin")
+  .sort((a, b) => b.data.published.getTime() - a.data.published.getTime())
+  .slice(0, 3);
 
 const recommended = all
   .filter((p) => p.data.kind === "recommended")
   .sort((a, b) => b.data.published.getTime() - a.data.published.getTime());
 
-const hasPublished = published.length > 0;
+const hasAnchors = anchors.length > 0;
+const hasLinkedin = linkedin.length > 0;
+const hasLeftColumn = hasAnchors || hasLinkedin;
 const hasRecommended = recommended.length > 0;
-const hasAny = hasPublished || hasRecommended;
-const bothColumns = hasPublished && hasRecommended;
+const hasAny = hasLeftColumn || hasRecommended;
+const bothColumns = hasLeftColumn && hasRecommended;
 
 const linkedinActivity = "https://www.linkedin.com/in/diegopilosof/recent-activity/all/";
 
@@ -26,27 +35,20 @@ const fmt = (d: Date) => d.toLocaleDateString("en-US", { year: "numeric", month:
     <SectionHeader number="04" title="Inputs" subtitle="What I'm reading and posting" />
 
     <div class:list={["grid gap-12 md:gap-16", bothColumns && "md:grid-cols-2"]}>
-      {hasPublished && (
+      {hasLeftColumn && (
         <div>
           <h3 class="font-mono text-xs uppercase tracking-[0.2em] text-text-muted mb-5">
             Recent on LinkedIn
           </h3>
 
-          <ul class="divide-y divide-white/[0.06] mb-6">
-            {published.map((post) => {
-              const href = post.data.link ?? linkedinActivity;
-              return (
+          {hasAnchors && (
+            <ul class="divide-y divide-white/[0.06] mb-8">
+              {anchors.map((post) => (
                 <li class="py-5 first:pt-0">
-                  <a
-                    href={href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="group block"
-                  >
+                  <a href={`/notes/${anchorSlugFromId(post.id)}`} class="group block">
                     <div class="flex items-baseline justify-between gap-4 mb-1">
                       <h4 class="text-text-light font-semibold text-base group-hover:text-accent transition-colors">
                         {post.data.title}
-                        <span class="text-text-muted ml-1">↗</span>
                       </h4>
                       <time
                         datetime={post.data.published.toISOString()}
@@ -55,12 +57,49 @@ const fmt = (d: Date) => d.toLocaleDateString("en-US", { year: "numeric", month:
                         {fmt(post.data.published)}
                       </time>
                     </div>
-                    <p class="text-text-muted text-sm leading-relaxed">{post.data.description}</p>
+                    <p class="text-text-muted text-sm leading-relaxed mb-2">{post.data.description}</p>
+                    <span class="font-mono text-xs text-accent group-hover:text-accent-2 transition-colors">
+                      → Read on site
+                    </span>
                   </a>
                 </li>
-              );
-            })}
-          </ul>
+              ))}
+            </ul>
+          )}
+
+          {hasLinkedin && (
+            <>
+              <h4 class="font-mono text-xs uppercase tracking-[0.2em] text-text-muted mb-4 mt-2">
+                Also on LinkedIn
+              </h4>
+              <ul class="divide-y divide-white/[0.06] mb-6">
+                {linkedin.map((post) => {
+                  const href = post.data.link ?? linkedinActivity;
+                  return (
+                    <li class="py-3 first:pt-0">
+                      <a
+                        href={href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="group flex items-baseline justify-between gap-4"
+                      >
+                        <span class="text-text-light text-sm group-hover:text-accent transition-colors">
+                          {post.data.title}
+                          <span class="text-text-muted ml-1">↗</span>
+                        </span>
+                        <time
+                          datetime={post.data.published.toISOString()}
+                          class="font-mono text-xs text-text-muted shrink-0"
+                        >
+                          {fmt(post.data.published)}
+                        </time>
+                      </a>
+                    </li>
+                  );
+                })}
+              </ul>
+            </>
+          )}
 
           <a
             href={linkedinActivity}

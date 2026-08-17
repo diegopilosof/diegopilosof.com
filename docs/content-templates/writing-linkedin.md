@@ -1,5 +1,5 @@
 ---
-kind: published
+kind: linkedin
 title: Replace with a short title for the post
 published: 2026-05-12
 description: One sentence on what the post argues. This shows under the title.

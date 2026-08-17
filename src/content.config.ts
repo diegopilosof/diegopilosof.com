@@ -26,11 +26,12 @@ const projects = defineCollection({
 const writing = defineCollection({
   loader: glob({ pattern: "**/*.md", base: "./src/content/writing" }),
   schema: z.object({
-    kind: z.enum(["published", "recommended"]),
+    kind: z.enum(["anchor", "linkedin", "recommended"]),
     title: z.string(),
     published: z.coerce.date(),
     description: z.string(),
     link: z.string().url().optional(),
+    linkedin_url: z.string().url().optional(),
     author: z.string().optional(),
     source: z.string().optional(),
   }),
